@@ -1,0 +1,18 @@
+jdk:
+  - openjdk17
+install:
+  - './scripts/prepare-variant.sh download'
+  - |
+    case "$VERSION" in
+      *-KBA-*)
+        ./gradlew -c settings.ohos.gradle.kts :KuiklyLLMProvider:publishToMavenLocal \
+          -PmavenVersion="$VERSION" --no-daemon
+        ;;
+      *)
+        ./gradlew :KuiklyLLMProvider:publishToMavenLocal :KuiklyLLMProviderAndroid:publishToMavenLocal \
+          -PmavenVersion="$VERSION" -Pvariant=download --no-daemon
+        ./scripts/prepare-variant.sh bundled
+        ./gradlew :KuiklyLLMProviderAndroid:publishToMavenLocal \
+          -PmavenVersion="$VERSION" -Pvariant=bundled --no-daemon
+        ;;
+    esac

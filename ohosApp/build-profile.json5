@@ -1,0 +1,57 @@
+{
+  "app": {
+    // 签名配置由开发者在 DevEco Studio 中本地生成，不写入版本库。
+    "products": [
+      {
+        "name": "default",
+        "compatibleSdkVersion": "5.0.0(12)",
+        // 显式声明以消除 hvigor 告警。
+        "targetSdkVersion": "6.1.1(24)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            // 必须为 true：@kuikly-open/render 是字节码 HAR，关闭会报 00306046。
+            // 因此 HAR 内部禁止使用相对路径导入（见 KuiklyLLMProviderOhos/Index.ets）。
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug"
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      // 可独立发布的 HarmonyOS 原生层 HAR（源码在 KuiklyLLMProviderOhos/）。
+      // 开启 useNormalizedOHMUrl 后，HAR 必须作为工程模块登记，否则 OhmUrl 无法解析。
+      "name": "llm_provider",
+      "srcPath": "../KuiklyLLMProviderOhos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

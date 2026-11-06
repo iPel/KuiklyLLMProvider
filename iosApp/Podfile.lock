@@ -1,0 +1,42 @@
+PODS:
+  - KuiklyLLMProviderIOS (0.1.1):
+    - OpenKuiklyIOSRender
+  - OpenKuiklyIOSRender (2.0.0)
+  - SDWebImage (5.21.7):
+    - SDWebImage/Core (= 5.21.7)
+  - SDWebImage/Core (5.21.7)
+  - shared (1.0)
+
+DEPENDENCIES:
+  - KuiklyLLMProviderIOS (from `../`)
+  - OpenKuiklyIOSRender (from `https://github.com/Tencent-TDS/KuiklyUI.git`, tag `2.30.0`)
+  - SDWebImage
+  - shared (from `../shared`)
+
+SPEC REPOS:
+  trunk:
+    - SDWebImage
+
+EXTERNAL SOURCES:
+  KuiklyLLMProviderIOS:
+    :path: "../"
+  OpenKuiklyIOSRender:
+    :git: https://github.com/Tencent-TDS/KuiklyUI.git
+    :tag: 2.30.0
+  shared:
+    :path: "../shared"
+
+CHECKOUT OPTIONS:
+  OpenKuiklyIOSRender:
+    :git: https://github.com/Tencent-TDS/KuiklyUI.git
+    :tag: 2.30.0
+
+SPEC CHECKSUMS:
+  KuiklyLLMProviderIOS: 505bbb60447e6a9031f35266f5860f5495821777
+  OpenKuiklyIOSRender: 0ea7064904d6b4e1fd4d0f3f63b3230dfc1584d0
+  SDWebImage: e9fc87c1aab89a8ab1bbd74eba378c6f53be8abf
+  shared: 6f6da78edb5945f4c49a565ba77ed3754b0d9e9b
+
+PODFILE CHECKSUM: 327739be6f3ef909867c1c17ee24d77c77e9d1d3
+
+COCOAPODS: 1.16.2

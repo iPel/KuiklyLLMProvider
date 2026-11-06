@@ -1,0 +1,14 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "Kuikly Entry Module",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "@kuikly-open/render": "2.30.0",
+    // 独立的 HarmonyOS 原生层 artifact
+    "@ipel/llm-provider-ohos": "file:../../KuiklyLLMProviderOhos",
+    "libkuikly_entry.so": "file:./src/main/cpp/types/kuikly_entry"
+  }
+}

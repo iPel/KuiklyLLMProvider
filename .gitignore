@@ -1,0 +1,53 @@
+# 模型清单与合规文件的唯一来源是 KuiklyLLMProviderAssets/。
+# 内置 GGUF 体积较大，本地保留一份，不纳入版本库。
+KuiklyLLMProviderAssets/models/*.gguf
+
+# 以下文件由 scripts/prepare-variant.sh 生成，属于打包产物，不纳入版本库。
+KuiklyLLMProviderAndroid/src/main/assets/catalog.json
+KuiklyLLMProviderAndroid/src/main/assets/legal/
+KuiklyLLMProviderAndroid/src/main/assets/model_parts/
+KuiklyLLMProviderIOS/Resources/legal/
+KuiklyLLMProviderIOS/Resources/model.gguf
+KuiklyLLMProviderOhos/src/main/resources/resfile/catalog.json
+KuiklyLLMProviderOhos/src/main/resources/resfile/LICENSE
+KuiklyLLMProviderOhos/src/main/resources/resfile/NOTICE.md
+KuiklyLLMProviderOhos/src/main/resources/resfile/model.gguf
+
+# 发布脚本生成的变体配置（bundled podspec 须入库：两个 Pod 共用同一 tag）
+KuiklyLLMProviderOhos/oh-package.bundled.json5
+
+# Android native 由 AGP externalNativeBuild 在构建期产出，不入库预编译 .so；
+# 与 CMake 产物重名会让 mergeNativeLibs 失败。
+KuiklyLLMProviderAndroid/src/main/jniLibs/**/*.so
+
+# 各端构建产物与本机配置
+.gradle/
+.kotlin/
+.cxx/
+.idea/
+build/
+*.hap
+*.apk
+*.har
+Pods/
+oh_modules/
+.hvigor/
+local.properties
+.DS_Store
+dist/
+
+# shared (Kotlin/Native ohosArm64) 的链接产物由 build-so.sh 生成、不入库。
+ohosApp/entry/libs/arm64-v8a/libshared.so
+ohosApp/entry/src/main/cpp/thirdparty/biz_entry/libshared_api.h
+
+# Python 脚本的字节码缓存（verify_symbols.py）
+__pycache__/
+*.pyc
+
+# 发布凭据只走环境变量，本地覆盖文件与模板一律不纳入版本库。
+gradle-credentials.local.properties
+*-credentials.properties
+*.credentials
+
+# publish-ohpm.sh 的临时备份（oh-package.json5 / BuildProfile.ets），避免误入库
+KuiklyLLMProviderOhos/*.ohpm-bak

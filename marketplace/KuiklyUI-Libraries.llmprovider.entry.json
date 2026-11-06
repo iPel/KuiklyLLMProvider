@@ -1,0 +1,15 @@
+{
+  "githubUrl": "https://github.com/iPel/KuiklyLLMProvider",
+  "examples": [
+    "https://github.com/iPel/KuiklyLLMProvider"
+  ],
+  "componentName": "LLMProvider",
+  "componentDescription": "端侧兼容 OpenAI API 的本地 HTTP 服务：提供模型管理、三端原生推理与两个发布变体",
+  "componentType": "KuiklyModule",
+  "developer": "iPel",
+  "Android": true,
+  "iOS": true,
+  "Ohos": true,
+  "Js": false,
+  "sDynamic": true
+}

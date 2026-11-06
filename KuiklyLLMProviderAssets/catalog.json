@@ -1,0 +1,51 @@
+{
+  "variant": "bundled",
+  "license": "apache-2.0",
+  "models": [
+    {
+      "id": "qwen3-0.6b-q4-k-m",
+      "name": "Qwen3-0.6B Q4_K_M",
+      "file": "Qwen3-0.6B-Q4_K_M.gguf",
+      "bytes": 396705472,
+      "sha256": "ac2d97712095a558e31573f62f466a3f9d93990898b0ec79d7c974c1780d524a",
+      "repo_ms": "unsloth/Qwen3-0.6B-GGUF",
+      "repo_hf": "unsloth/Qwen3-0.6B-GGUF",
+      "base": "Qwen/Qwen3-0.6B",
+      "copyright": "Copyright 2024 Alibaba Cloud",
+      "tier": "standard",
+      "bundled": true,
+      "url_primary": "https://www.modelscope.cn/models/unsloth/Qwen3-0.6B-GGUF/resolve/master/Qwen3-0.6B-Q4_K_M.gguf",
+      "url_backup": "https://huggingface.co/unsloth/Qwen3-0.6B-GGUF/resolve/main/Qwen3-0.6B-Q4_K_M.gguf"
+    },
+    {
+      "id": "qwen3.5-0.8b-q4-k-m",
+      "name": "Qwen3.5-0.8B Q4_K_M",
+      "file": "Qwen3.5-0.8B-Q4_K_M.gguf",
+      "bytes": 532517120,
+      "sha256": "bd258782e35f7f458f8aced1adc053e6e92e89bc735ba3be89d38a06121dc517",
+      "repo_ms": "unsloth/Qwen3.5-0.8B-GGUF",
+      "repo_hf": "unsloth/Qwen3.5-0.8B-GGUF",
+      "base": "Qwen/Qwen3.5-0.8B",
+      "copyright": "Copyright 2026 Alibaba Cloud",
+      "tier": "balanced",
+      "bundled": false,
+      "url_primary": "https://www.modelscope.cn/models/unsloth/Qwen3.5-0.8B-GGUF/resolve/master/Qwen3.5-0.8B-Q4_K_M.gguf",
+      "url_backup": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/main/Qwen3.5-0.8B-Q4_K_M.gguf"
+    },
+    {
+      "id": "qwen3.5-2b-q4-k-m",
+      "name": "Qwen3.5-2B Q4_K_M",
+      "file": "Qwen3.5-2B-Q4_K_M.gguf",
+      "bytes": 1280835840,
+      "sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+      "repo_ms": "unsloth/Qwen3.5-2B-GGUF",
+      "repo_hf": "unsloth/Qwen3.5-2B-GGUF",
+      "base": "Qwen/Qwen3.5-2B",
+      "copyright": "Copyright 2026 Alibaba Cloud",
+      "tier": "quality",
+      "bundled": false,
+      "url_primary": "https://www.modelscope.cn/models/unsloth/Qwen3.5-2B-GGUF/resolve/master/Qwen3.5-2B-Q4_K_M.gguf",
+      "url_backup": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/main/Qwen3.5-2B-Q4_K_M.gguf"
+    }
+  ]
+}

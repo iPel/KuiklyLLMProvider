@@ -1,0 +1,7 @@
+{
+  "modelVersion": "5.0.0",
+  // 关联编译逻辑内联在 entry/hvigorfile.ts，不引入外部 hvigor 插件依赖，
+  // 因此不会触发 DevEco 内置 pnpm 拉 npm 元数据。
+  "dependencies": {
+  }
+}

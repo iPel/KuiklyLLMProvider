@@ -1,0 +1,15 @@
+{
+  // 可独立发布的 HarmonyOS HAR（ohpm 包）
+  "name": "@ipel/llm-provider-ohos",
+  // 包版本用纯语义版本；Kotlin 工具链版本只体现在 Maven 坐标与 git tag。
+  // 带 -KBA-010 后缀会被 hvigor 判定为不符合 SemVer 并告警。
+  "version": "0.1.1",
+  "description": "KuiklyLLMProvider HarmonyOS artifact - on-device OpenAI Compatible Server with managed model catalog",
+  "main": "Index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@kuikly-open/render": "2.30.0",
+    "libllm_provider.so": "file:./src/main/cpp/types/libllm_provider"
+  }
+}

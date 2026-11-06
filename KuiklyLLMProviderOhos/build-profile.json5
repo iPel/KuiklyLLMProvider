@@ -1,0 +1,51 @@
+{
+  "apiType": "stageMode",
+  "buildOption": {
+    "externalNativeOptions": {
+      // DevEco 标准布局：native 源码、CMakeLists 与类型包都在 src/main/cpp/。
+      // path 必须指向该目录下的 CMakeLists.txt，否则 native task 会被跳过，HAR 不含 .so。
+      "path": "./src/main/cpp/CMakeLists.txt",
+      "arguments": "",
+      "cppFlags": ""
+    }
+  },
+  "buildOptionSet": [
+    {
+      "name": "release",
+      "arkOptions": {
+        "obfuscation": {
+          "ruleOptions": {
+            "enable": false,
+            "files": []
+          }
+        }
+      },
+      "nativeLib": {
+        "debugSymbol": {
+          "strip": true
+        }
+      }
+    },
+    {
+      "name": "debug",
+      "arkOptions": {
+        "obfuscation": {
+          "ruleOptions": {
+            "enable": false,
+            "files": []
+          }
+        }
+      },
+      "nativeLib": {
+        "debugSymbol": {
+          "strip": false
+        }
+      }
+    }
+  ],
+  "targets": [
+    {
+      "name": "default"
+    }
+  ]
+}

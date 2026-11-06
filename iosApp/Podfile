@@ -1,0 +1,65 @@
+platform :ios, '14.1'
+source 'https://cdn.cocoapods.org/'
+
+# 先同步模型清单、内置模型与合规文件，再生成 Pods 工程
+ROOT = File.expand_path('..', __dir__)
+system('sh', File.join(ROOT, 'scripts/prepare-variant.sh'), 'bundled') || abort('模型资产同步失败')
+
+# llama.cpp GGUF 推理是本 demo 的必需依赖。默认取仓库内
+# KuiklyLLMProviderNative/prebuilt/llama/ios-sim/arm64（iOS Simulator arm64），
+# 无需手动传环境变量。需要换路径或换目标架构时用下面两个环境变量覆盖：
+#   LLMPROVIDER_LLAMA_DIR     含 include/llama.h 的目录
+#   LLMPROVIDER_LLAMA_LIB_DIR 含 libllama.a / libggml*.a 的目录
+# 找不到预编译库时直接中止：Pod 已强制定义 LLMPROVIDER_WITH_LLAMA，
+# 缺库只会在链接期失败，不存在模拟引擎可退化。
+DEFAULT_LLAMA_DIR = File.expand_path('KuiklyLLMProviderNative/prebuilt/llama', ROOT)
+DEFAULT_LLAMA_LIB_DIR = File.join(DEFAULT_LLAMA_DIR, 'ios-sim/arm64')
+LLAMA_DIR = ENV['LLMPROVIDER_LLAMA_DIR'] || DEFAULT_LLAMA_DIR
+LLAMA_LIB_DIR = ENV['LLMPROVIDER_LLAMA_LIB_DIR'] || DEFAULT_LLAMA_LIB_DIR
+
+unless File.exist?(File.join(LLAMA_LIB_DIR, 'libllama.a')) &&
+       File.exist?(File.join(LLAMA_DIR, 'include/llama.h'))
+  abort("未找到 llama.cpp 预编译库：LLAMA_DIR=#{LLAMA_DIR} LIB_DIR=#{LLAMA_LIB_DIR}\n" \
+        "请确认 prebuilt/llama/ 已入库，或设置 LLMPROVIDER_LLAMA_DIR / LLMPROVIDER_LLAMA_LIB_DIR 后重新 pod install。")
+end
+
+target 'iosApp' do
+  use_frameworks!
+  pod 'shared', :path => '../shared'
+  pod 'OpenKuiklyIOSRender', :git => 'https://github.com/Tencent-TDS/KuiklyUI.git', :tag => '2.30.0'
+  # 独立的 iOS 原生层 artifact（podspec 位于仓库根）
+  pod 'KuiklyLLMProviderIOS', :path => '../'
+  pod 'SDWebImage'
+end
+
+post_install do |installer|
+  # build_settings 的值通常是字符串；统一按「原有值 + 追加项」拼接，
+  # 并显式带上 $(inherited)，避免覆盖 CocoaPods / xcconfig 已有设置。
+  append = lambda do |settings, key, values|
+    prev = settings[key]
+    parts = prev.is_a?(Array) ? prev.dup : (prev ? [prev] : [])
+    settings[key] = (parts + values).join(' ')
+  end
+
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.1'
+    end
+
+    next unless target.name == 'KuiklyLLMProviderIOS'
+
+    target.build_configurations.each do |config|
+      s = config.build_settings
+      # LLMPROVIDER_WITH_LLAMA=1 已由 podspec 的 pod_target_xcconfig 强制定义；
+      # 这里只负责注入头文件与静态库路径，避免同一宏在两处声明。
+      headers = ['$(inherited)', "#{LLAMA_DIR}/include"]
+      headers << "#{LLAMA_DIR}/ggml/include" if File.directory?(File.join(LLAMA_DIR, 'ggml/include'))
+      append.call(s, 'HEADER_SEARCH_PATHS', headers)
+      append.call(s, 'LIBRARY_SEARCH_PATHS', ['$(inherited)', LLAMA_LIB_DIR])
+      # 静态库按依赖顺序排列，ld 靠重复扫描解析符号
+      append.call(s, 'OTHER_LDFLAGS',
+                  ['$(inherited)', '-lllama', '-lggml-cpu', '-lggml-base', '-lggml'])
+      # 不对 Pods framework 做 strip：Kuikly 靠 ObjC 类名反射创建 Module。
+    end
+  end
+end

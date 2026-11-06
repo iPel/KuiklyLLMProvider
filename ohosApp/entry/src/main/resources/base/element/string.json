@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Kuikly Entry Module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Kuikly Entry Ability"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "Kuikly"
+    }
+  ]
+}
