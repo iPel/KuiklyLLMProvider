@@ -43,7 +43,7 @@ OpenAI API 的服务端点。本组件不提供对话界面或对话 SDK。
 |---|---|
 | KMP、Android AAR | JitPack |
 | iOS Pod | GitHub tag |
-| HarmonyOS HAR | GitHub Release assets |
+| HarmonyOS HAR | GitHub Release assets / OpenHarmony 三方库中心仓 |
 
 ```kotlin
 // settings.gradle.kts
@@ -71,14 +71,14 @@ dependencyResolutionManagement {
 | `download` | `com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid:0.1.1-2.1.21` |
 | `bundled` | `com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid-Bundled:0.1.1-2.1.21` |
 
-**iOS Pod**（包版本均为 `0.1.1`）
+**iOS Pod**
 
 | 版本 | Podfile |
 |---|---|
 | `download` | `pod 'KuiklyLLMProviderIOS', :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.1-2.1.21'` |
 | `bundled` | `pod 'KuiklyLLMProviderIOSBundled', :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.1-2.1.21'` |
 
-**HarmonyOS HAR**（Release tag `0.1.1-2.1.21`）
+**HarmonyOS HAR**
 
 | 版本 | Release asset | ohpm 包名 |
 |---|---|---|
@@ -89,10 +89,14 @@ dependencyResolutionManagement {
 
 ### 3. Android
 
-`download` 版本需要网络权限（AAR 已声明，由宿主合并）：
+添加 Android AAR 依赖（download 版或 bundled 版）：
 
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
+```kotlin
+// build.gradle.kts
+dependencies {
+    implementation("com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid:0.1.1-2.1.21")
+    // implementation("com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid-Bundled:0.1.1-2.1.21")
+}
 ```
 
 在 `KuiklyRenderActivity` 中注册：
@@ -108,12 +112,19 @@ override fun registerExternalModule(kuiklyRenderExport: IKuiklyRenderExport) {
 
 ### 4. iOS
 
-按上表用 `:git/:tag` 引入对应 Pod。无需注册 Module，框架按类名
-`KRLLMProviderModule` 在运行时自动发现。
+添加 Pod 依赖（download 版或 bundled 版）：
+
+```ruby
+# Podfile
+pod 'KuiklyLLMProviderIOS', :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.1-2.1.21'
+# pod 'KuiklyLLMProviderIOSBundled', :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.1-2.1.21'
+```
+
+无需注册 Module，框架按类名 `KRLLMProviderModule` 在运行时自动发现。
 
 ### 5. HarmonyOS
 
-从 [Release `0.1.1-2.1.21`](https://github.com/iPel/KuiklyLLMProvider/releases/tag/0.1.1-2.1.21) 下载 HAR 后本地安装：
+**方式一：从 [GitHub Release](https://github.com/iPel/KuiklyLLMProvider/releases/tag/0.1.1-2.1.21) 下载 HAR 后本地安装：**
 
 ```bash
 ohpm install ./download.har     # 或 ./bundled.har
@@ -126,9 +137,24 @@ ohpm install ./download.har     # 或 ./bundled.har
 }
 ```
 
-在 `KuiklyViewDelegate` 中注册：
+**方式二：从 OpenHarmony 三方库中心仓安装：**
+
+`download` 版（[查看可用版本](https://ohpm.openharmony.cn/#/cn/detail/@ipel%2Fllm-provider-ohos)）：
+
+```bash
+ohpm install @ipel/llm-provider-ohos
+```
+
+或`bundled` 版（[查看可用版本](https://ohpm.openharmony.cn/#/cn/detail/@ipel%2Fllm-provider-bundled-ohos)）：
+
+```bash
+ohpm install @ipel/llm-provider-bundled-ohos
+```
+
+**安装后：在 `KuiklyViewDelegate` 中注册 Module（两种方式均需）：**
 
 ```ts
+// bundled 版把包名换成 @ipel/llm-provider-bundled-ohos
 import { KRLLMProviderModule } from '@ipel/llm-provider-ohos';
 
 getCustomRenderModuleCreatorRegisterMap(): Map<string, KRRenderModuleExportCreator> {
@@ -138,9 +164,21 @@ getCustomRenderModuleCreatorRegisterMap(): Map<string, KRRenderModuleExportCreat
 }
 ```
 
-`KuiklyLLMProviderOhos` 的 `module.json5` 已声明 `ohos.permission.INTERNET`。
-
 ### 6. Kuikly 页面
+
+在 Kuikly 页面模块的 `build.gradle.kts` 中添加依赖：
+
+```kotlin
+kotlin {
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation("com.github.iPel.KuiklyLLMProvider:KuiklyLLMProvider:0.1.1-2.1.21")
+            }
+        }
+    }
+}
+```
 
 在页面中注册页面级 Module，并在页面内获取：
 

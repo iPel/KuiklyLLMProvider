@@ -21,7 +21,7 @@ llama.cpp / ggml 静态库，缺库即构建失败。
 
 未 strip 的 `libllm_provider.so` 由 CMake `POST_BUILD` 留在模块 `build/native-symbols/`，
 Gradle 的 `nativeSymbolsZip` 打成 `-native-symbols.zip`，只随 `KuiklyLLMProviderAndroid` 坐标发布一份；
-两个变体共用这份符号，校验方式见[开发文档](../docs/development.md)。手动强制重编并自测三者 Build ID 一致：
+两个版本共用这份符号，校验方式见[开发文档](../docs/development.md)。手动强制重编并自测三者 Build ID 一致：
 
 ```bash
 ./scripts/build-android-native.sh

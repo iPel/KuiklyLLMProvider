@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Package the HarmonyOS HAR for both published variants; distributed via GitHub Release only.
+# Package the HarmonyOS HAR for both published variants.
 # The package version is plain semver; the Kotlin toolchain suffix appears only in Maven coordinates and git tags.
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -174,7 +174,7 @@ PY
 fi
 
 cat <<EOF
-> [INFO] 两个 HAR 已生成于 dist/（含 SHA256SUMS），与符号表同走标准 tag 的 GitHub Release，不发 ohpm 中心仓。
+> [INFO] 两个 HAR 已生成于 dist/（含 SHA256SUMS），与符号表同走标准 tag 的 GitHub Release。
   gh release create $RELEASE_TAG dist/download.har dist/bundled.har dist/SHA256SUMS
   # tag 已存在时改用：gh release upload $RELEASE_TAG dist/download.har dist/bundled.har dist/SHA256SUMS
 > [INFO] 调试符号：dist/symbols/ohos/libllm_provider.so.unstripped（两个 HAR 已校验 Build ID）。

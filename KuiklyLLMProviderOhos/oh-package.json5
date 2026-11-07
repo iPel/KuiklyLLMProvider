@@ -6,8 +6,10 @@
   "version": "0.1.1",
   "description": "KuiklyLLMProvider HarmonyOS artifact - on-device OpenAI Compatible Server with managed model catalog",
   "main": "Index.ets",
-  "author": "",
+  "author": { "name": "iPel", "url": "https://github.com/iPel" },
   "license": "Apache-2.0",
+  "repository": "https://github.com/iPel/KuiklyLLMProvider",
+  "homepage": "https://github.com/iPel/KuiklyLLMProvider",
   "dependencies": {
     "@kuikly-open/render": "2.30.0",
     "libllm_provider.so": "file:./src/main/cpp/types/libllm_provider"
