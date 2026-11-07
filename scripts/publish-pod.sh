@@ -15,7 +15,7 @@ usage() {
   cat <<'EOF'
 Usage: ./scripts/publish-pod.sh [options]
 
-  -v, --version <ver>   plain package version (default: MAVEN_VERSION, e.g. 0.1.1)
+  -v, --version <ver>   plain package version (default: MAVEN_VERSION, e.g. 0.1.2)
       --lint            run pod spec lint on both podspecs (requires the tag
                         to be pushed; use `pod lib lint` for a local check)
   -h, --help            show this help

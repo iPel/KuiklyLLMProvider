@@ -4,7 +4,7 @@ HarmonyOS 原生层 HAR，实现 Kuikly 扩展原生 API `KRLLMProviderModule`�
 
 ## 安装
 
-**方式一：从 [GitHub Release](https://github.com/iPel/KuiklyLLMProvider/releases/tag/0.1.1-2.1.21) 下载 HAR 后本地安装：**
+**方式一：从 [GitHub Release](https://github.com/iPel/KuiklyLLMProvider/releases/tag/0.1.2-2.1.21) 下载 HAR 后本地安装：**
 
 ```bash
 ohpm install ./download.har     # 或 ./bundled.har

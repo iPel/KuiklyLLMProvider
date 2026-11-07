@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.2
+
+- 修复断点续传时因缺少 Content-Length 跳过 SHA-256 校验并删除正确分卷
+- HarmonyOS：`napi_cancelled` 无回调时增加超时兜底；`serverStatus.ok` 与另两端对齐
+- iOS Pod：补齐 LICENSE、NOTICE 与 catalog，已有模型不再被覆盖
+- 发布脚本不再把派生变体写回基准 catalog，`--no-pack` 不再删除已有产物
+- HAR 元数据补齐 author / repository / homepage，README 增加中心仓安装方式
+
 ## 0.1.1
 
 - 首个版本：端侧模型服务组件，支持 Android、iOS 与 HarmonyOS

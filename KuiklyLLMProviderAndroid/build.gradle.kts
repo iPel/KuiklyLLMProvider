@@ -12,7 +12,7 @@ plugins {
 val providerVariant: String = (findProperty("variant") as? String)
     ?: (findProperty("PROVIDER_VARIANT") as? String) ?: "bundled"
 val mavenVersion: String = (findProperty("mavenVersion") as? String)
-    ?: (findProperty("MAVEN_VERSION") as? String) ?: "0.1.1"
+    ?: (findProperty("MAVEN_VERSION") as? String) ?: "0.1.2"
 val publishGroupId: String = (findProperty("groupId") as? String)
     ?: (findProperty("GROUP_ID") as? String) ?: "com.github.iPel.KuiklyLLMProvider"
 val mavenRepoUrl: String = (findProperty("mavenRepoUrl") as? String)

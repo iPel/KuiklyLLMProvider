@@ -1,5 +1,5 @@
 PODS:
-  - KuiklyLLMProviderIOS (0.1.1):
+  - KuiklyLLMProviderIOS (0.1.2):
     - OpenKuiklyIOSRender
   - OpenKuiklyIOSRender (2.0.0)
   - SDWebImage (5.21.7):
@@ -32,7 +32,7 @@ CHECKOUT OPTIONS:
     :tag: 2.30.0
 
 SPEC CHECKSUMS:
-  KuiklyLLMProviderIOS: 505bbb60447e6a9031f35266f5860f5495821777
+  KuiklyLLMProviderIOS: c7c0f652a4e6f96249c230d2d19739f078b4db80
   OpenKuiklyIOSRender: 0ea7064904d6b4e1fd4d0f3f63b3230dfc1584d0
   SDWebImage: e9fc87c1aab89a8ab1bbd74eba378c6f53be8abf
   shared: 6f6da78edb5945f4c49a565ba77ed3754b0d9e9b

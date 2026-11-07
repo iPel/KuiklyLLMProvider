@@ -5,8 +5,8 @@
 
 Maven 坐标（经 JitPack 分发）：
 
-- `com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid:0.1.1-2.1.21`
-- `com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid-Bundled:0.1.1-2.1.21`（内置模型）
+- `com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid:0.1.2-2.1.21`
+- `com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid-Bundled:0.1.2-2.1.21`（内置模型）
 
 ## Native 构建
 

@@ -29,7 +29,7 @@ if [[ -z "$VERSION" || -z "$KOTLIN_VERSION" || -z "$OHOS_KOTLIN_VERSION" ]]; the
   exit 2
 fi
 if [[ "$VERSION" == *-"$KOTLIN_VERSION" || "$VERSION" == *-"$OHOS_KOTLIN_VERSION" ]]; then
-  echo "> [ERROR] -v 只接受纯包版本（如 0.1.1），不要带 Kotlin 工具链后缀：" >&2
+  echo "> [ERROR] -v 只接受纯包版本（如 0.1.2），不要带 Kotlin 工具链后缀：" >&2
   echo "          tag / Maven 坐标的后缀由各发布脚本自动拼接。" >&2
   exit 2
 fi

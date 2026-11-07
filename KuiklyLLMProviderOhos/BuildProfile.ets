@@ -1,4 +1,4 @@
-export const HAR_VERSION = '0.1.1';
+export const HAR_VERSION = '0.1.2';
 export const BUILD_MODE_NAME = 'debug';
 export const DEBUG = true;
 export const TARGET_NAME = 'default';

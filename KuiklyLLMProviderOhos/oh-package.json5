@@ -3,7 +3,7 @@
   "name": "@ipel/llm-provider-ohos",
   // 包版本用纯语义版本；Kotlin 工具链版本只体现在 Maven 坐标与 git tag。
   // 带 -KBA-010 后缀会被 hvigor 判定为不符合 SemVer 并告警。
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "KuiklyLLMProvider HarmonyOS artifact - on-device OpenAI Compatible Server with managed model catalog",
   "main": "Index.ets",
   "author": { "name": "iPel", "url": "https://github.com/iPel" },

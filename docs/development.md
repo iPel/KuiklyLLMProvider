@@ -21,7 +21,7 @@
 | 属性 | 说明 |
 |---|---|
 | `MODULE_NAME` | 组件模块名 `KuiklyLLMProvider` |
-| `MAVEN_VERSION` | **纯包版本** `0.1.1`；Pod / HAR 均使用该值 |
+| `MAVEN_VERSION` | **纯包版本** `0.1.2`；Pod / HAR 均使用该值 |
 | `GROUP_ID` | Maven publication 的 groupId `com.github.iPel.KuiklyLLMProvider`（按 JitPack 多模块规则推导） |
 | `KOTLIN_VERSION_LIST` | 标准工具链 `2.1.21`（逗号分隔） |
 | `OHOS_KOTLIN_VERSION_LIST` | 鸿蒙工具链 `2.0.21-KBA-010` |
@@ -40,9 +40,9 @@
 
 | 用途 | 格式 | 当前值 |
 |---|---|---|
-| Pod / HAR 包版本 | `MAVEN_VERSION` | `0.1.1` |
-| Maven 坐标版本、标准 git tag / GitHub Release | `{MAVEN_VERSION}-{KOTLIN_VERSION_LIST[0]}` | `0.1.1-2.1.21` |
-| 鸿蒙 Maven 坐标版本 / JitPack 触发 tag | `{MAVEN_VERSION}-{OHOS_KOTLIN_VERSION_LIST[0]}` | `0.1.1-2.0.21-KBA-010` |
+| Pod / HAR 包版本 | `MAVEN_VERSION` | `0.1.2` |
+| Maven 坐标版本、标准 git tag / GitHub Release | `{MAVEN_VERSION}-{KOTLIN_VERSION_LIST[0]}` | `0.1.2-2.1.21` |
+| 鸿蒙 Maven 坐标版本 / JitPack 触发 tag | `{MAVEN_VERSION}-{OHOS_KOTLIN_VERSION_LIST[0]}` | `0.1.2-2.0.21-KBA-010` |
 
 `scripts/release.sh -v` 只接受纯包版本，带工具链后缀会被拒绝（否则坐标会二次拼接）。
 Kotlin 后缀只落在 Maven 坐标与 git tag 上，不进入 Pod / HAR 的包版本。
@@ -218,32 +218,32 @@ HAR 采用 DevEco 标准布局：native 源码、`CMakeLists.txt` 与 `types/lib
 
 | 产物 | 渠道 | 版本 / tag |
 |---|---|---|
-| KMP（标准 Kotlin） | JitPack 标准 tag | Maven 版本 = `0.1.1-2.1.21` |
-| KMP（鸿蒙 Kotlin） | JitPack 鸿蒙 tag | Maven 版本 = `0.1.1-2.0.21-KBA-010` |
-| Android AAR × 2 变体 | JitPack 标准 tag | Maven 版本 = `0.1.1-2.1.21` |
-| iOS Pod × 2 变体 | GitHub `:git/:tag` | 包版本 `0.1.1`，tag `0.1.1-2.1.21` |
-| 鸿蒙 HAR × 2 变体 | GitHub Release assets（标准 tag） | 包版本 `0.1.1`，tag `0.1.1-2.1.21` |
-| Android 符号 classifier | JitPack 标准 tag（随 `KuiklyLLMProviderAndroid`） | `KuiklyLLMProviderAndroid-0.1.1-2.1.21-native-symbols.zip` |
-| 调试符号表（Android + 鸿蒙） | GitHub Release（**标准 tag**） | `symbols-0.1.1.tar.gz` + `.sha256` |
+| KMP（标准 Kotlin） | JitPack 标准 tag | Maven 版本 = `0.1.2-2.1.21` |
+| KMP（鸿蒙 Kotlin） | JitPack 鸿蒙 tag | Maven 版本 = `0.1.2-2.0.21-KBA-010` |
+| Android AAR × 2 变体 | JitPack 标准 tag | Maven 版本 = `0.1.2-2.1.21` |
+| iOS Pod × 2 变体 | GitHub `:git/:tag` | 包版本 `0.1.2`，tag `0.1.2-2.1.21` |
+| 鸿蒙 HAR × 2 变体 | GitHub Release assets（标准 tag） | 包版本 `0.1.2`，tag `0.1.2-2.1.21` |
+| Android 符号 classifier | JitPack 标准 tag（随 `KuiklyLLMProviderAndroid`） | `KuiklyLLMProviderAndroid-0.1.2-2.1.21-native-symbols.zip` |
+| 调试符号表（Android + 鸿蒙） | GitHub Release（**标准 tag**） | `symbols-0.1.2.tar.gz` + `.sha256` |
 
 Maven 侧的坐标版本与 tag 相同，完整坐标表见根目录 [README.md](../README.md)；Pod / HAR 的
-包版本始终为纯 `0.1.1`。GGUF 分卷随源码入库，JitPack 与 `pod install` 都从分卷复现产物，
+包版本始终为纯 `0.1.2`。GGUF 分卷随源码入库，JitPack 与 `pod install` 都从分卷复现产物，
 不依赖 396 MB 原始文件。iOS 不做符号分发。
 
 ```bash
-./scripts/release.sh --dry-run -v 0.1.1
+./scripts/release.sh --dry-run -v 0.1.2
 ./scripts/publish-maven.sh --local --variant download --android-only   # 本地发布验证
-./scripts/release.sh -v 0.1.1                                         # 版本同步 + 本地产物
+./scripts/release.sh -v 0.1.2                                         # 版本同步 + 本地产物
 
 # 外部动作，脚本不自动执行
 # 1) 标准 tag：JitPack 构建 KMP + Android 两变体；iOS Pod 与唯一 Release 共用同一 tag
-git tag 0.1.1-2.1.21 && git push origin 0.1.1-2.1.21
+git tag 0.1.2-2.1.21 && git push origin 0.1.2-2.1.21
 # 鸿蒙 tag：只触发 JitPack 鸿蒙 KMP 构建，不建 Release
-git tag 0.1.1-2.0.21-KBA-010 && git push origin 0.1.1-2.0.21-KBA-010
+git tag 0.1.2-2.0.21-KBA-010 && git push origin 0.1.2-2.0.21-KBA-010
 # 2) 标准 tag 的 Release：放两个 HAR 与校验文件（与符号表共用同一个 Release）
-gh release create 0.1.1-2.1.21 dist/download.har dist/bundled.har dist/SHA256SUMS
+gh release create 0.1.2-2.1.21 dist/download.har dist/bundled.har dist/SHA256SUMS
 # 3) 等 JitPack 构建完成后，把符号表发布到标准 tag 的 Release
-./scripts/publish-symbols.sh -v 0.1.1 --wait 30 --upload
+./scripts/publish-symbols.sh -v 0.1.2 --wait 30 --upload
 ```
 
 仓库地址为 `https://github.com/iPel/KuiklyLLMProvider`。

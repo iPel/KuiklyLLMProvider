@@ -3,7 +3,7 @@
 独立 iOS Pod，实现 `KRLLMProviderModule`。类名与 Module 名一致，iOS 无需手动注册。
 接入方式见仓库根目录 [README.md](../README.md) 与 `KuiklyLLMProviderIOS.podspec`。
 
-两个 Pod 都从 GitHub `:git/:tag` 引用，共用标准 tag `0.1.1-2.1.21`，包版本均为 `0.1.1`：
+两个 Pod 都从 GitHub `:git/:tag` 引用，共用标准 tag `0.1.2-2.1.21`，包版本均为 `0.1.2`：
 
 | 版本 | Pod 名 |
 |---|---|

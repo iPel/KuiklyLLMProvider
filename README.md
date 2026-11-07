@@ -61,22 +61,22 @@ dependencyResolutionManagement {
 
 | Kotlin 工具链 | 坐标 |
 |---|---|
-| 标准 `2.1.21` | `com.github.iPel.KuiklyLLMProvider:KuiklyLLMProvider:0.1.1-2.1.21` |
-| 鸿蒙 `2.0.21-KBA-010` | `com.github.iPel.KuiklyLLMProvider:KuiklyLLMProvider:0.1.1-2.0.21-KBA-010` |
+| 标准 `2.1.21` | `com.github.iPel.KuiklyLLMProvider:KuiklyLLMProvider:0.1.2-2.1.21` |
+| 鸿蒙 `2.0.21-KBA-010` | `com.github.iPel.KuiklyLLMProvider:KuiklyLLMProvider:0.1.2-2.0.21-KBA-010` |
 
 **Android AAR**
 
 | 版本 | 坐标 |
 |---|---|
-| `download` | `com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid:0.1.1-2.1.21` |
-| `bundled` | `com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid-Bundled:0.1.1-2.1.21` |
+| `download` | `com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid:0.1.2-2.1.21` |
+| `bundled` | `com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid-Bundled:0.1.2-2.1.21` |
 
 **iOS Pod**
 
 | 版本 | Podfile |
 |---|---|
-| `download` | `pod 'KuiklyLLMProviderIOS', :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.1-2.1.21'` |
-| `bundled` | `pod 'KuiklyLLMProviderIOSBundled', :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.1-2.1.21'` |
+| `download` | `pod 'KuiklyLLMProviderIOS', :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.2-2.1.21'` |
+| `bundled` | `pod 'KuiklyLLMProviderIOSBundled', :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.2-2.1.21'` |
 
 **HarmonyOS HAR**
 
@@ -94,8 +94,8 @@ dependencyResolutionManagement {
 ```kotlin
 // build.gradle.kts
 dependencies {
-    implementation("com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid:0.1.1-2.1.21")
-    // implementation("com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid-Bundled:0.1.1-2.1.21")
+    implementation("com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid:0.1.2-2.1.21")
+    // implementation("com.github.iPel.KuiklyLLMProvider:KuiklyLLMProviderAndroid-Bundled:0.1.2-2.1.21")
 }
 ```
 
@@ -116,15 +116,15 @@ override fun registerExternalModule(kuiklyRenderExport: IKuiklyRenderExport) {
 
 ```ruby
 # Podfile
-pod 'KuiklyLLMProviderIOS', :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.1-2.1.21'
-# pod 'KuiklyLLMProviderIOSBundled', :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.1-2.1.21'
+pod 'KuiklyLLMProviderIOS', :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.2-2.1.21'
+# pod 'KuiklyLLMProviderIOSBundled', :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.2-2.1.21'
 ```
 
 无需注册 Module，框架按类名 `KRLLMProviderModule` 在运行时自动发现。
 
 ### 5. HarmonyOS
 
-**方式一：从 [GitHub Release](https://github.com/iPel/KuiklyLLMProvider/releases/tag/0.1.1-2.1.21) 下载 HAR 后本地安装：**
+**方式一：从 [GitHub Release](https://github.com/iPel/KuiklyLLMProvider/releases/tag/0.1.2-2.1.21) 下载 HAR 后本地安装：**
 
 ```bash
 ohpm install ./download.har     # 或 ./bundled.har
@@ -173,7 +173,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("com.github.iPel.KuiklyLLMProvider:KuiklyLLMProvider:0.1.1-2.1.21")
+                implementation("com.github.iPel.KuiklyLLMProvider:KuiklyLLMProvider:0.1.2-2.1.21")
             }
         }
     }
@@ -273,7 +273,7 @@ curl -H "Authorization: Bearer $API_KEY" \
 工程结构、构建、发布与测试见 [docs/development.md](docs/development.md)，架构见
 [docs/architecture.md](docs/architecture.md)，版本记录见 [CHANGELOG.md](CHANGELOG.md)。
 
-崩溃排查用的调试符号表发布在标准 tag（`0.1.1-2.1.21`）的 GitHub Release，以 `symbols-<版本>.tar.gz` 提供，不随仓库分发；产出与对应关系见 [docs/development.md](docs/development.md)。
+崩溃排查用的调试符号表发布在标准 tag（`0.1.2-2.1.21`）的 GitHub Release，以 `symbols-<版本>.tar.gz` 提供，不随仓库分发；产出与对应关系见 [docs/development.md](docs/development.md)。
 
 ## 许可证
 

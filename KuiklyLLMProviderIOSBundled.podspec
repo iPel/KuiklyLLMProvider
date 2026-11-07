@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'KuiklyLLMProviderIOSBundled'
-  spec.version      = '0.1.1'
+  spec.version      = '0.1.2'
   spec.summary      = 'On-device OpenAI-compatible HTTP service module for Kuikly (iOS)'
   spec.description  = <<-DESC
     iOS native layer of KuiklyLLMProvider - an on-device OpenAI-compatible HTTP service. Contains KRLLMProviderModule
@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
   spec.homepage     = 'https://github.com/iPel/KuiklyLLMProvider'
   spec.license      = { :type => 'Apache-2.0', :file => 'LICENSE' }
   spec.authors      = { 'iPel' => '' }
-  spec.source       = { :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.1-2.1.21' }
+  spec.source       = { :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.2-2.1.21' }
 
   spec.ios.deployment_target = '14.1'
   # bundled 版在 pod install 期从入库分卷合并回单个 GGUF，并补齐合规文件与模型清单。

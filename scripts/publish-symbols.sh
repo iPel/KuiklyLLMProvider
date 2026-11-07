@@ -18,7 +18,7 @@ usage() {
   cat <<'EOF'
 Usage: ./scripts/publish-symbols.sh [options]
 
-  -v, --version <ver>   纯包版本（默认 MAVEN_VERSION，如 0.1.1）
+  -v, --version <ver>   纯包版本（默认 MAVEN_VERSION，如 0.1.2）
       --tag <tag>       Release tag（默认 <version>-<KOTLIN_VERSION_LIST[0]>，即标准 tag）
       --jitpack-url <u> JitPack 基址（默认 https://jitpack.io）
       --wait <n>        JitPack 未就绪（404 或「构建中」HTML）时的重试次数，每次间隔 20s（默认 0）
