@@ -13,6 +13,8 @@ Pod::Spec.new do |spec|
   spec.source       = { :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.1-2.1.21' }
 
   spec.ios.deployment_target = '14.1'
+  # CocoaPods 的 :git/:tag checkout 不含生成物，prepare_command 补齐合规文件与模型清单。
+  spec.prepare_command = 'bash scripts/prepare-pod-assets.sh download'
 
   # 独立 pod 只含 iOS 原生 Module 与共享 C++ 源码；KMP 层由 shared framework 提供
   spec.source_files = [

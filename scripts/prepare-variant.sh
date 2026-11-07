@@ -41,37 +41,26 @@ done
 # Clean any previously injected weights/parts.
 rm -rf "$A_ANDROID/model_parts" "$A_IOS/model.gguf" "$A_OHOS/model.gguf"
 
-python3 - "$ROOT" "$VARIANT" <<'PY'
+python3 - "$ROOT" <<'PY'
 import json, sys, os
 root = sys.argv[1]
-variant = sys.argv[2]
 cat = json.load(open(os.path.join(root, "KuiklyLLMProviderAssets/catalog.json")))
 
 # 按 catalog 的显式文件清单清理 OHOS resfile 下旧权重，不使用 shell 的
-# Qwen*.gguf 通配符；路径一律由 os.path.join(root, ...) 约束在项目根内。
+# Qwen*.gguf 通配符；删除前用 realpath + commonpath 断言仍在项目根内。
 # 清单随 catalog 自动同步，新增模型无需改脚本。
+root = os.path.realpath(root)
 resfile = os.path.join(root, "KuiklyLLMProviderOhos/src/main/resources/resfile")
 for m in cat["models"]:
-    p = os.path.join(resfile, m["file"])
+    p = os.path.realpath(os.path.join(resfile, m["file"]))
+    if os.path.commonpath([p, root]) != root:
+        raise SystemExit("refusing to remove outside the project: " + p)
     if os.path.isfile(p):
         os.remove(p)
-
-for m in cat["models"]:
-    m["bundled"] = variant == "bundled" and m is cat["models"][0]
-cat["variant"] = variant
-for d in ["KuiklyLLMProviderAndroid/src/main/assets",
-          "KuiklyLLMProviderIOS/Resources/legal",
-          "KuiklyLLMProviderOhos/src/main/resources/resfile"]:
-    os.makedirs(os.path.join(root, d), exist_ok=True)
-# catalog.json is read by each native layer from its own resource dir
-for d in ["KuiklyLLMProviderAndroid/src/main/assets",
-          "KuiklyLLMProviderIOS/Resources/legal",
-          "KuiklyLLMProviderOhos/src/main/resources/resfile"]:
-    with open(os.path.join(root, d, "catalog.json"), "w") as f:
-        json.dump(cat, f, ensure_ascii=False, indent=2)
-open(os.path.join(root, "KuiklyLLMProviderAssets/catalog.json"), "w").write(json.dumps(cat, ensure_ascii=False, indent=2) + "\n")
-print("  catalog.json written (variant=%s)" % variant)
 PY
+
+# 各端读自己资源目录里的派生 catalog。
+python3 "$ROOT/scripts/derive_catalog.py" "$VARIANT" "$A_ANDROID" "$A_IOS/legal" "$A_OHOS"
 
 if [ "$VARIANT" = bundled ]; then
   echo "==> injecting bundled model from git-tracked parts"

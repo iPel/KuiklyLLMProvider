@@ -199,9 +199,6 @@ internal class ModelStore(internal val ctx: Context) {
                 FileOutputStream(p, append)
             }
             lastError = ""  // 本源可用：清除上一个源留下的错误
-            // getHeaderFieldLong 需 API 24，minSdk 23 改用字符串解析。
-            val contentLength = c.getHeaderField("Content-Length")?.toLongOrNull() ?: -1L
-            val expectedTotal = if (append) existing + contentLength else e.bytes
             output.use { out ->
                 c.inputStream.use { input ->
                     val buf = ByteArray(64 * 1024)
@@ -214,9 +211,8 @@ internal class ModelStore(internal val ctx: Context) {
                 }
             }
             if (!job.running) return false  // 暂停/取消：保留 .part
-            val finalLen = p.length()
-            val lenOk = finalLen == e.bytes && (expectedTotal <= 0 || finalLen == expectedTotal)
-            if (lenOk && verify(p, e)) {
+            // 长度 + SHA-256 是唯一判据：Content-Length 可能缺失（chunked），不参与判定。
+            if (p.length() == e.bytes && verify(p, e)) {
                 // 原子落盘 + 检查返回值，避免 renameTo 静默失败导致模型丢失。
                 if (!moveIntoPlace(p, path(e))) lastError = "model install failed"
                 return false

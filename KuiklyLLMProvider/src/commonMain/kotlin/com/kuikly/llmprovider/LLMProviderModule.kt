@@ -49,7 +49,7 @@ class LLMProviderModule : Module() {
         callback: (ok: Boolean, baseUrl: String, apiKey: String, message: String) -> Unit,
     ) {
         val args = JSONObject().apply { put(LLMProviderContract.KEY_PORT, config.port) }
-        call(METHOD_START, args) { result ->
+        call(LLMProviderContract.METHOD_START, args) { result ->
             val j = jsonOf(result)
             callback(
                 j.optBoolean(LLMProviderContract.KEY_OK, false),
@@ -61,7 +61,7 @@ class LLMProviderModule : Module() {
     }
 
     fun stopServer(callback: (ok: Boolean, message: String) -> Unit) {
-        call(METHOD_STOP, null) { result ->
+        call(LLMProviderContract.METHOD_STOP, null) { result ->
             val j = jsonOf(result)
             callback(
                 j.optBoolean(LLMProviderContract.KEY_OK, false),
@@ -71,7 +71,7 @@ class LLMProviderModule : Module() {
     }
 
     fun status(callback: (running: Boolean, baseUrl: String, apiKey: String) -> Unit) {
-        call(METHOD_STATUS, null) { result ->
+        call(LLMProviderContract.METHOD_STATUS, null) { result ->
             val j = jsonOf(result)
             callback(
                 j.optBoolean(LLMProviderContract.KEY_RUNNING, false),
@@ -83,7 +83,7 @@ class LLMProviderModule : Module() {
 
     /** 模型快照 JSON 字符串。 */
     fun models(callback: (String) -> Unit) {
-        call(METHOD_MODELS, null) { result -> callback(dataOf(result)) }
+        call(LLMProviderContract.METHOD_MODELS, null) { result -> callback(dataOf(result)) }
     }
 
     fun modelAction(action: String, modelId: String, callback: (String) -> Unit) {
@@ -91,17 +91,12 @@ class LLMProviderModule : Module() {
             put(LLMProviderContract.KEY_ACTION, action)
             put(LLMProviderContract.KEY_MODEL_ID, modelId)
         }
-        call(METHOD_MODEL_ACTION, args) { result -> callback(dataOf(result)) }
+        call(LLMProviderContract.METHOD_MODEL_ACTION, args) { result -> callback(dataOf(result)) }
     }
 
     companion object {
         const val MODULE_NAME = LLMProviderContract.MODULE_NAME
 
-        private const val METHOD_START = "startServer"
-        private const val METHOD_STOP = "stopServer"
-        private const val METHOD_STATUS = "serverStatus"
-        private const val METHOD_MODELS = "models"
-        private const val METHOD_MODEL_ACTION = "modelAction"
         private const val EMPTY_MODELS = "{\"models\":[]}"
     }
 }

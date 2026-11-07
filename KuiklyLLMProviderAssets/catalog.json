@@ -1,5 +1,4 @@
 {
-  "variant": "bundled",
   "license": "apache-2.0",
   "models": [
     {
@@ -13,7 +12,7 @@
       "base": "Qwen/Qwen3-0.6B",
       "copyright": "Copyright 2024 Alibaba Cloud",
       "tier": "standard",
-      "bundled": true,
+      "bundled": false,
       "url_primary": "https://www.modelscope.cn/models/unsloth/Qwen3-0.6B-GGUF/resolve/master/Qwen3-0.6B-Q4_K_M.gguf",
       "url_backup": "https://huggingface.co/unsloth/Qwen3-0.6B-GGUF/resolve/main/Qwen3-0.6B-Q4_K_M.gguf"
     },

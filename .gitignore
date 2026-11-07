@@ -48,6 +48,7 @@ __pycache__/
 gradle-credentials.local.properties
 *-credentials.properties
 *.credentials
+.ohpmrc
 
 # publish-ohpm.sh 的临时备份（oh-package.json5 / BuildProfile.ets），避免误入库
 KuiklyLLMProviderOhos/*.ohpm-bak

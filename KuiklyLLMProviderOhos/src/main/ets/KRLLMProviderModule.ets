@@ -570,7 +570,7 @@ export class KRLLMProviderModule extends KuiklyRenderBaseModule {
         return null;
       }
       case METHOD_STATUS: {
-        callback?.(llmprovider.status(llmprovider.isRunning() === 1, ''));
+        callback?.(llmprovider.status(true, ''));
         return null;
       }
       case METHOD_MODELS: {

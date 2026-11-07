@@ -47,16 +47,13 @@ s = s.replace(
 )
 s = re.sub(r"spec\.version\s*=\s*'[^']*'", "spec.version      = '" + version + "'", s)
 s = re.sub(r"(:tag => )'[^']*'", lambda m: m.group(1) + "'" + tag + "'", s)
-anchor = "  spec.ios.deployment_target = '14.1'"
-if anchor not in s:
-    raise SystemExit("cannot find deployment_target anchor in " + src_path)
-s = s.replace(
-    anchor,
-    anchor
-    + "\n  # bundled 变体在 pod install 期把入库分卷合并回单个 GGUF；download 变体不注入此行。"
-    + "\n  spec.prepare_command = 'bash scripts/merge-model-parts.sh KuiklyLLMProviderIOS/Resources/model.gguf'",
-    1,
-)
+old_prepare = ("  # CocoaPods 的 :git/:tag checkout 不含生成物，prepare_command 补齐合规文件与模型清单。\n"
+               "  spec.prepare_command = 'bash scripts/prepare-pod-assets.sh download'")
+new_prepare = ("  # bundled 版在 pod install 期从入库分卷合并回单个 GGUF，并补齐合规文件与模型清单。\n"
+               "  spec.prepare_command = 'bash scripts/prepare-pod-assets.sh bundled'")
+if old_prepare not in s:
+    raise SystemExit("cannot find download prepare_command in " + src_path)
+s = s.replace(old_prepare, new_prepare, 1)
 open(out_path, "w", encoding="utf-8").write(s)
 PY
 echo "> [INFO] generated $BUNDLED_PODSPEC (name / version / tag / prepare_command)"

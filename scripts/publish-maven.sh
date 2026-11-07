@@ -16,8 +16,6 @@ MODULE_KMP=$(prop MODULE_NAME)
 KOTLIN_LIST=$(prop KOTLIN_VERSION_LIST)
 OHOS_KOTLIN_LIST=$(prop OHOS_KOTLIN_VERSION_LIST)
 MAVEN_URL=$(prop MAVEN_REPO_URL)
-MAVEN_USERNAME=$(prop MAVEN_USERNAME)
-MAVEN_PASSWORD=$(prop MAVEN_PASSWORD)
 VARIANTS="all"
 SNAPSHOT="false"
 LOCAL_REPO="false"
@@ -87,10 +85,10 @@ case "$VARIANTS" in
 esac
 
 # 凭据只经环境变量注入，避免口令出现在 ps / history / CI 日志与 Gradle 命令行。
-if [[ -n "$MAVEN_USERNAME" ]]; then
+if [[ -n "${MAVEN_USERNAME:-}" ]]; then
   export ORG_GRADLE_PROJECT_mavenUsername="$MAVEN_USERNAME"
 fi
-if [[ -n "$MAVEN_PASSWORD" ]]; then
+if [[ -n "${MAVEN_PASSWORD:-}" ]]; then
   export ORG_GRADLE_PROJECT_mavenPassword="$MAVEN_PASSWORD"
 fi
 
@@ -101,7 +99,10 @@ gradle_args=(-PgroupId="$GROUP_ID")
 [[ "$REFRESH_DEPS" == "true" ]] && gradle_args+=(--refresh-dependencies)
 ANDROID_MODULE="${MODULE_KMP}Android"
 
-cleanup() { ./scripts/prepare-variant.sh bundled >/dev/null 2>&1 || true; }
+# 记录运行前的变体，退出时恢复；尚未派生过（全新 clone）时回退仓库默认 bundled。
+INITIAL_VARIANT=$(python3 scripts/derive_catalog.py --current)
+
+cleanup() { ./scripts/prepare-variant.sh "$INITIAL_VARIANT" >/dev/null 2>&1 || true; }
 trap cleanup EXIT
 
 if [[ "$NEED_CLEAN" == "true" ]]; then "$GRADLEW" clean; fi

@@ -204,8 +204,10 @@ HAR 采用 DevEco 标准布局：native 源码、`CMakeLists.txt` 与 `types/lib
 | `scripts/update-model.sh` | 下载 / 校验新 GGUF、切成 32 MiB 分卷、回写 catalog；不执行 git 操作，不发布 |
 | `scripts/merge-model-parts.sh` | 从入库分卷合并出单个 `model.gguf` 并校验 SHA-256 与字节数 |
 | `scripts/prepare-variant.sh` | 生成两个变体的模型清单与三端资产 |
+| `scripts/derive_catalog.py` | 从 `KuiklyLLMProviderAssets/catalog.json` 派生指定变体的 `catalog.json`，供上下两个脚本共用；`--current` 打印当前已派生的变体，供发布脚本退出时恢复 |
+| `scripts/prepare-pod-assets.sh` | 为 CocoaPods 消费者补齐 iOS 的合规文件与模型清单（`prepare_command` 调用，不改动其它端资产） |
 | `scripts/publish-maven.sh` | KMP 每工具链一个坐标 + Android AAR 每变体一个；支持 `--variant download/bundled/all`、`--local`、`--android-only`、`-s`、`-m/-u/-p` |
-| `scripts/publish-pod.sh` | 生成 `KuiklyLLMProviderIOSBundled.podspec`（注入 `prepare_command`）、可选 `pod spec lint`、打印 tag 指引 |
+| `scripts/publish-pod.sh` | 从 download podspec 派生 `KuiklyLLMProviderIOSBundled.podspec`、可选 `pod spec lint`、打印 tag 指引 |
 | `scripts/publish-ohpm.sh` | 以 `buildMode=release` 用 `hvigorw assembleHar` 产出两个 HAR、`SHA256SUMS` 与一份鸿蒙符号，并校验两个 HAR；退出时恢复 hvigor 自动改写的 `oh-package.json5` 与 `BuildProfile.ets`，不污染工作树 |
 | `scripts/verify_symbols.py` | 解析 ELF 的 `NT_GNU_BUILD_ID`，比对 AAR/HAR 与符号（支持 zip / tar.gz），不依赖 NDK 工具链 |
 | `scripts/publish-symbols.sh` | 从 JitPack 下载 `KuiklyLLMProviderAndroid` AAR 与 `native-symbols.zip`、逐构件校验 Build ID，汇总一份鸿蒙符号，打包并上传到标准 tag Release |

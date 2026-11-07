@@ -13,8 +13,8 @@ Pod::Spec.new do |spec|
   spec.source       = { :git => 'https://github.com/iPel/KuiklyLLMProvider.git', :tag => '0.1.1-2.1.21' }
 
   spec.ios.deployment_target = '14.1'
-  # bundled 变体在 pod install 期把入库分卷合并回单个 GGUF；download 变体不注入此行。
-  spec.prepare_command = 'bash scripts/merge-model-parts.sh KuiklyLLMProviderIOS/Resources/model.gguf'
+  # bundled 版在 pod install 期从入库分卷合并回单个 GGUF，并补齐合规文件与模型清单。
+  spec.prepare_command = 'bash scripts/prepare-pod-assets.sh bundled'
 
   # 独立 pod 只含 iOS 原生 Module 与共享 C++ 源码；KMP 层由 shared framework 提供
   spec.source_files = [

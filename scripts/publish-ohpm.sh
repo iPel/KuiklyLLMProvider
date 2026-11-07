@@ -63,21 +63,27 @@ restore_build_profile() {
     mv -f "$BUILD_PROFILE_BAK" "$BUILD_PROFILE"
   fi
 }
+
+# 记录运行前的变体，退出时恢复；尚未派生过（全新 clone）时回退仓库默认 bundled。
+INITIAL_VARIANT=$(python3 "$ROOT/scripts/derive_catalog.py" --current)
+
 cleanup() {
   restore_pkg
   restore_build_profile
-  ./scripts/prepare-variant.sh bundled >/dev/null 2>&1 || true
+  ./scripts/prepare-variant.sh "$INITIAL_VARIANT" >/dev/null 2>&1 || true
 }
 trap cleanup EXIT
 
 echo "> [INFO] HAR version=$VERSION release tag=$RELEASE_TAG"
 mkdir -p "$DIST"
-# 清空旧 HAR 与旧符号，避免把上次产物当作本次结果。
-rm -f "$DIST"/*.har "$DIST/SHA256SUMS" "$DIST"/hvigor-*.log "$HAR_OUT" \
-      "$SYM_ARCHIVE" \
-      "$DIST/symbols/ohos/download/libllm_provider.so.unstripped" \
-      "$DIST/symbols/ohos/bundled/libllm_provider.so.unstripped"
-mkdir -p "$DIST/symbols/ohos"
+if [[ "$PACK" == "true" ]]; then
+  # 清空旧 HAR 与旧符号，避免把上次产物当作本次结果。
+  rm -f "$DIST"/*.har "$DIST/SHA256SUMS" "$DIST"/hvigor-*.log "$HAR_OUT" \
+        "$SYM_ARCHIVE" \
+        "$DIST/symbols/ohos/download/libllm_provider.so.unstripped" \
+        "$DIST/symbols/ohos/bundled/libllm_provider.so.unstripped"
+  mkdir -p "$DIST/symbols/ohos"
+fi
 # 备份 hvigor 会自动改写的文件；trap cleanup 在退出时恢复运行前的内容。
 if [[ -f "$BUILD_PROFILE" ]]; then
   cp "$BUILD_PROFILE" "$BUILD_PROFILE_BAK"
